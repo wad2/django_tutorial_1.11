@@ -6,6 +6,7 @@ django.setup()
 
 from polls.models import Question, Choice
 from datetime import datetime
+from pytz import utc
 
 def populate():
     # First, we will create lists of dictionaries containing the pages
@@ -39,11 +40,11 @@ def populate():
         {"choice_text": "Charles Dickens", "votes": 5},
         {"choice_text": "Walter Scott", "votes": 9},]
 
-    questions = {"What's up?": {"choices": question1_choices, "pub_date": datetime(2016, 10, 17, 15, 30)},
-                 "What is the capital of France?": {"choices": question2_choices, "pub_date": datetime(2016, 8, 27, 10, 46)},
-                 "Who would walk 500 miles?": {"choices": question3_choices, "pub_date": datetime(2016, 9, 16, 13, 14)},
-                 "When was the Battle of Flodden?": {"choices": question4_choices, "pub_date": datetime(2016, 2, 13, 20, 52)},
-                 "Who wrote \"Waverley\"?": {"choices": question5_choices, "pub_date": datetime(2016, 10, 15, 8, 9)}}
+    questions = {"What's up?": {"choices": question1_choices, "pub_date": datetime(2016, 10, 17, 15, 30, tzinfo=utc)},
+                 "What is the capital of France?": {"choices": question2_choices, "pub_date": datetime(2016, 8, 27, 10, 46, tzinfo=utc)},
+                 "Who would walk 500 miles?": {"choices": question3_choices, "pub_date": datetime(2016, 9, 16, 13, 14, tzinfo=utc)},
+                 "When was the Battle of Flodden?": {"choices": question4_choices, "pub_date": datetime(2016, 2, 13, 20, 52, tzinfo=utc)},
+                 "Who wrote \"Waverley\"?": {"choices": question5_choices, "pub_date": datetime(2016, 10, 15, 8, 9, tzinfo=utc)}}
 
     for question, question_data in questions.items():
         q = add_question(question, question_data["pub_date"])
