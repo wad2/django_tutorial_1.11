@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+<<<<<<< HEAD
 from django.views import generic
 from .models import Choice, Question
 
@@ -24,6 +25,22 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+=======
+from .models import Choice, Question
+
+def index(request):
+    latest_question_list = Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:3]
+    context = {'latest_question_list': latest_question_list}
+    return render(request, 'polls/index.html', context)
+
+def detail(request, question_id):
+   question = get_object_or_404(Question.objects.filter(pub_date__lte=timezone.now()), pk=question_id)
+   return render(request, 'polls/detail.html', {'question': question})
+
+def results(request, question_id):
+   question = get_object_or_404(Question.objects.filter(pub_date__lte=timezone.now()), pk=question_id)
+   return render(request, 'polls/results.html', {'question': question})
+>>>>>>> 082cfaecc7804e96e9c162db17cbd14c9ce69de8
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
